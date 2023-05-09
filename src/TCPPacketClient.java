@@ -4,28 +4,19 @@ import java.util.Scanner;
 
 public class TCPPacketClient {
 
-    private static ObjectOutputStream toServer = null;
-    private static Scanner fromUser = null;
-    private static Packet packet = null;
-
     public static void main(String[] args) {
 
-        try {
-            Socket socket = new Socket("localhost", 1024);
-            toServer = new ObjectOutputStream(socket.getOutputStream());
-            fromUser = new Scanner(System.in);
-        }
-        catch (IOException ex) {
-            ex.printStackTrace();
-        }
-
-        try {
+        try (
+            Socket socket = new Socket("localhost", 8000);
+            ObjectOutputStream toServer = new ObjectOutputStream(socket.getOutputStream());
+            Scanner fromUser = new Scanner(System.in);
+        ) {
             System.out.print("Enter the data packet: ");
             String line = fromUser.nextLine().toUpperCase();
             int serialNo = 1;
 
             while (!line.equals("CLOSE")) {
-                packet = new Packet(serialNo, line);
+                Packet packet = new Packet(serialNo, line);
 
                 toServer.writeObject(packet);
                 toServer.flush();
@@ -35,6 +26,7 @@ public class TCPPacketClient {
                 System.out.print("Enter the data packet: ");
                 line = fromUser.next().toUpperCase();
                 serialNo++;
+
             }
         }
         catch (IOException ex) {

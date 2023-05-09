@@ -9,7 +9,7 @@ public class Clients {
 
         try (
                 Socket socket = new Socket(hostName, portNumber);
-                PrintWriter out = new PrintWriter(socket.getOutputStream(), true);
+                PrintStream out = new PrintStream(socket.getOutputStream(), true);
                 BufferedReader in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
                 BufferedReader stdIn = new BufferedReader(new InputStreamReader(System.in))
         ) {

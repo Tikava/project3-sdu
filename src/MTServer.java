@@ -10,7 +10,7 @@ public class MTServer {
                 ServerSocket serverSocket = new ServerSocket(portNumber);
                 Socket clientSocket = serverSocket.accept();
                 BufferedReader inFromClient = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
-                PrintWriter outToClient = new PrintWriter(clientSocket.getOutputStream(), true);
+                PrintStream outToClient = new PrintStream(clientSocket.getOutputStream(), true);
                 BufferedReader stdIn = new BufferedReader(new InputStreamReader(System.in))
         ) {
             System.out.println("New client is pop up!");
