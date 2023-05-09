@@ -7,7 +7,7 @@ public class TCPPacketClient {
     public static void main(String[] args) {
 
         try (
-            Socket socket = new Socket("localhost", 8000);
+            Socket socket = new Socket("localhost", 1024);
             ObjectOutputStream toServer = new ObjectOutputStream(socket.getOutputStream());
             Scanner fromUser = new Scanner(System.in);
         ) {
